@@ -50,8 +50,6 @@
                                     <input type="text" class="form-control" id="customer_email" name="customer_email" placeholder="Customer email">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row mb-2">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="customer_tel">Customer Tel</label>
@@ -61,8 +59,7 @@
                             </div>
                             <input type="hidden" name="status" value="A">
                         </div>
-                    </div>
-                        <a href="{{ route('customers.index') }}"  class="btn btn-danger float-sm-center">Cancel</a>
+                        <a href="{{ route('customer.index') }}"  class="btn btn-danger float-sm-center">Cancel</a>
                         <button type="submit" class="btn btn-primary float-sm-centre">Add Customer</button>
                 </form>
             </div>

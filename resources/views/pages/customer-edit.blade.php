@@ -42,8 +42,8 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="cstomer_address">Customer Address</label>
-                                        <input type="text" class="form-control" id="cstomer_address" name="cstomer_address" value="{{ $customer->cstomer_address }}" placeholder="Model no">
+                                        <label for="customer_address">Customer Address</label>
+                                        <input type="text" class="form-control" id="customer_address" name="customer_address" value="{{ $customer->customer_address }}" placeholder="Model no">
                                     </div>
                                 </div>
                             </div>

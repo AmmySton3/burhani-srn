@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\purchase;
 use App\Models\Asset;
+use App\Models\vendor;
 
 class PurchaseController extends Controller
 {
@@ -22,7 +23,8 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        return view('pages/purchase-add');
+        $vendors = vendor::all();
+        return view('pages/purchase-add', compact('vendors'));
     }
 
     /**

@@ -75,9 +75,9 @@
                                     <label for="vendor">Vendor</label>
                                     <select name="vendor" id="vendor" class="form-control" required>
                                     <option value="" disabled selected>Select vendor</option>
-                                    
-                                        <option value=""></option>
-                                    
+                                     @foreach ($vendors as $vendor)
+                                        <option value="{{ $vendor->id }}">{{ $vendor->vendor_name }}</option>
+                                    @endforeach
                                 </select>
                                 </div>
                             </div>

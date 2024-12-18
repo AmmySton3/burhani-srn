@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Sales;
 use App\Models\Purchase;
 use App\Models\Asset;
+use App\Models\customer;
 
 class SalesController extends Controller
 {
@@ -25,8 +26,8 @@ class SalesController extends Controller
     {
         $deductedSerials = Sales::pluck('serial_no'); // Get all serial_no in sales table
         $purchases = Purchase::whereNotIn('serial_no', $deductedSerials)->get();
-    
-        return view('pages/sales-add', compact('purchases'));
+        $customers = customer::all();
+        return view('pages/sales-add', compact('purchases', 'customers'));
     }
 
     /**

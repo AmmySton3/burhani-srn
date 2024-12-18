@@ -57,8 +57,8 @@
                                     <label for="customer_name">Customer Name</label>
                                     <select name="name" id="name" class="form-control" required>
                                     <option value="" disabled selected>Select customer name</option>
-                                    @foreach ($purchases as $purchase)
-                                        <option value="{{ $purchase->serial_no }}">{{ $purchase->name }}</option>
+                                    @foreach ($customers as $customer)
+                                        <option value="{{ $customer->id }}">{{ $customer->customer_name }}</option>
                                     @endforeach
                                 </select>
                                 </div>
