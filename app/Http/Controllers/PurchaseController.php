@@ -86,7 +86,6 @@ class PurchaseController extends Controller
         if(!$purchase) {
             return redirect()->route('purchase.index')->with('error', 'Item not found.');       
         }
-        else {
             $validatedData = $request->validate([
                 'serial_no' => 'required|integer',
                 'model_no' => 'required|string|max:20',
@@ -102,8 +101,6 @@ class PurchaseController extends Controller
             $purchase->update($validatedData);
 
             return redirect()->route('purchase.index')->with('success', 'Item successfully updated.');
-        }
-
     }
 
     /**
