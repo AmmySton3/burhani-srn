@@ -15,7 +15,7 @@ class SalesController extends Controller
      */
     public function index()
     {
-        $sales = Sales::with('purchase')->get();
+        $sales = Sales::with('purchase', 'customer')->get();
         return view('pages/sales', compact('sales'));
     }
 
@@ -39,9 +39,6 @@ class SalesController extends Controller
         $validatedData = $request->validate([
             'serial_no' => 'required|exists:purchases,serial_no|unique:sales,serial_no',
             'customer_name' => 'required|string|max:100',
-            'customer_address' => 'required|string|max:100',
-            'customer_email' => 'required|string|max:100',
-            'customer_tel' => 'required|string|max:100',
             'c_invoice_no' => 'nullable|string|max:100',
             'date_of_sales' => 'required|date',
             'status' => 'required|string|max:1',
@@ -104,9 +101,6 @@ class SalesController extends Controller
             $validatedData = $request->validate([
                 'serial_no' => 'required|integer',
                 'customer_name' => 'required|string|max:100',
-                'customer_address' => 'required|string|max:100',
-                'customer_email' => 'required|string|max:100',
-                'customer_tel' => 'required|string|max:100',
                 'c_invoice_no' => 'nullable|string|max:100',
                 'date_of_sales' => 'required|date',
                 'status' => 'required|string|max:1',

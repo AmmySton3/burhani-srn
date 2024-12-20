@@ -74,8 +74,8 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="vendor">Vendor</label>
-                                        <input type="text" class="form-control" id="vendor" name="vendor" value="{{ $purchase->vendor }}" placeholder="Vendor">
+                                        <label for="vendor_name">Vendor</label>
+                                        <input type="text" class="form-control" id="vendor_name" name="vendor_name" value="{{ $purchase->vendor_name }}" placeholder="Vendor">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">

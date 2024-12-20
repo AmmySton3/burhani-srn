@@ -3,15 +3,6 @@
 @section('content')
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-  @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
@@ -55,7 +46,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="customer_name">Customer Name</label>
-                                    <select name="name" id="name" class="form-control" required>
+                                    <select name="customer_name" id="customer_name" class="form-control" required>
                                     <option value="" disabled selected>Select customer name</option>
                                     @foreach ($customers as $customer)
                                         <option value="{{ $customer->id }}">{{ $customer->customer_name }}</option>

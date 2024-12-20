@@ -24,7 +24,7 @@ class purchase extends Model
         'company',
         'invoice_no',
         'date_of_purchase',
-        'vendor',
+        'vendor_name',
         'status',
         'remarks',
     ];
@@ -32,5 +32,10 @@ class purchase extends Model
     public function sales()
     {
         return $this->hasMany(sales::class, 'serial_no');
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo(vendor::class, 'vendor_name');
     }
 }

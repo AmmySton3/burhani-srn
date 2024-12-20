@@ -12,7 +12,7 @@ class sales extends Model
     protected $fillable = [
         'sales_id',
         'serial_no',
-        'customer_id',
+        'customer_name',
         'c_invoice_no',
         'status',
         'date_of_sales',
@@ -26,6 +26,6 @@ class sales extends Model
 
     public function customer()
     {
-        return $this->hasMany(sales::class);
+        return $this->belongsTo(customer::class, 'customer_name');
     }
 }

@@ -48,26 +48,6 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label for="customer_email">Customer Email</label>
-                                        <input type="text" class="form-control" id="customer_email" name="customer_email" value="{{ $sales->customer_email }}" placeholder="Email">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="customer_address">Customer Address</label>
-                                        <input type="text" class="form-control" id="customer_address" name="customer_address" value="{{ $sales->customer_address }}" placeholder="Address">
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label for="customer_tel">Customer Tel</label>
-                                        <input type="text" class="form-control" id="customer_tel" name="customer_tel" value="{{ $sales->customer_tel }}" placeholder="Telephone No">
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
                                         <label for="c_invoice_no">Invoice No</label>
                                         <input type="text" class="form-control" id="c_invoice_no" name="c_invoice_no" value="{{ $sales->c_invoice_no }}" placeholder="Invoice no">
                                     </div>

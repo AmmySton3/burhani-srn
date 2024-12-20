@@ -39,34 +39,55 @@
 
                             @if($data)
                                 <h6>Search Results for Serial No: {{ $serial_no }}</h6>
-                                <table class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Model</th>
-                                            <th>Details</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if($data['sales'])
-                                            <tr>
-                                                <td>Sales</td>
-                                                <td>
-                                                    Customer: {{ $data['sales']->customer_name }}<br>
-                                                    Date: {{ $data['sales']->date_of_sales }}
-                                                </td>
-                                            </tr>
-                                        @endif
-                                        @if($data['purchase'])
-                                            <tr>
-                                                <td>Purchase</td>
-                                                <td>
-                                                    Name: {{ $data['purchase']->name }}<br>
-                                                    Date of Purchase: {{ $data['purchase']->date_of_purchase }}
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    </tbody>
-                                </table>
+                                <div class="invoice p-3 mb-3">
+                                <!-- title row -->
+                                <div class="row">
+                                    <div class="col-12">
+                                    <h4>
+                                        <i class="fas fa-globe"></i> Burhani Infosys Ltd
+                                        <small class="float-right"></small>
+                                    </h4>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- info row -->
+                                <div class="row invoice-info">
+                                    <div class="col-sm-4 invoice-col">
+                                 @if($data['purchase'])
+                                    From
+                                    <address>
+                                   <strong> Company Name: {{ $data['purchase']->vendor->vendor_name}} </strong><br>
+                                   <strong> Product Name: {{ $data['purchase']->name }}</strong> <br>
+                                   <strong> Date: {{ $data['purchase']->date_of_purchase }}</strong> <br>
+                                   <strong> Phone: {{ $data['purchase']->vendor->vendor_tel }}</strong><br>
+                                   <strong> Email: {{ $data['purchase']->vendor->vendor_email }}</strong> <br>
+                                   <strong> Invoice No: {{ $data['purchase']->invoice_no }}</strong>
+                                    </address>
+                                    @endif
+                                    </div>
+                                    <!-- /.col -->
+                                    <div class="col-sm-4 invoice-col">
+                                    @if($data['sales'])
+                                    To
+                                    <address>
+                                        <strong>Customer Name: {{ $data['sales']->customer->customer_name }} </strong><br>
+                                        <strong>Date: {{ $data['sales']->date_of_sales }}</strong> <br>
+                                        <strong>Phone: {{ $data['sales']->customer->customer_tel }}</strong> <br>
+                                        <strong>Email: {{ $data['sales']->customer->customer_email }}</strong> <br>
+                                        <strong>Invoice No: {{ $data['sales']->c_invoice_no }}</strong>
+                                    </address>
+                                    @endif
+                                    </div>
+                                </div>
+
+                                <!-- this row will not appear when printing -->
+                                <div class="row no-print">
+                                    <div class="col-12">
+                                    <a href="" onclick="window.print()" class="btn btn-success float-right">
+                                        <i class="fas fa-download"></i> Generate PDF </a>
+                                    </div>
+                                </div>
+                                </div>
                             @else
                                 <p>No results found.</p>
                             @endif

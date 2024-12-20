@@ -10,6 +10,8 @@ class asset extends Model
         'serial_no',
         'sales_id',
         'status',
+        'updated_at',
+        'created_by',
     ];
 
     public function sales()

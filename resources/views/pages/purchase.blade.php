@@ -64,7 +64,7 @@
                   <td>{{$purchase->serial_no}}</td>
                   <td>{{$purchase->model_no}}</td>
                   <td>{{$purchase->date_of_purchase}}</td>
-                  <td>{{$purchase->vendor}}</td>
+                  <td>{{$purchase->vendor->vendor_name ?? 'N/A'}}</td>
                   <td><a href="{{ route('purchase.edit', $purchase->serial_no)}}" class="btn btn-info">Edit</a> <a href="{{ route('purchase.destroy', $purchase->serial_no)}}" class="btn btn-danger">Delete</a></td>
                 </tr>
                    @endforeach

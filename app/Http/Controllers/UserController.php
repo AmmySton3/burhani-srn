@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\roles;   
 
 class UserController extends Controller
 {
@@ -12,8 +13,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('pages/user');
+        $users = User::with('roles')->get();
+        return view('pages/user',compact('users'));
     }
 
     /**
@@ -21,7 +22,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $roles = roles::all();
+        return view('pages/user-add', compact('roles'));
     }
 
     /**
@@ -48,7 +50,9 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::all();
+        return view('pages/user-edit', compact('user'));
+
     }
 
     /**

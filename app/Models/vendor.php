@@ -16,6 +16,6 @@ class vendor extends Model
 
     public function purchase()
     {
-        return $this->hasMany(purchase::class);
+        return $this->hasMany(purchase::class, 'vendor_name');
     }
 }

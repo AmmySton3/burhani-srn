@@ -3,6 +3,18 @@
 @section('content')
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+     <!-- Display Flash Messages -->
+     @if (session('success'))
+      <div class="alert alert-success col-sm-9 collapse" role="alert">
+          {{ session('success') }}
+      </div>
+    @endif
+
+    @if (session('error'))
+      <div class="alert alert-danger col-sm-9 collapse" role="alert">
+          {{ session('error') }}
+      </div>
+    @endif
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
@@ -28,9 +40,9 @@
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">
-                <form method="POST" action="">
-                  <h3><button type="submit" class="btn btn-info">Add New User</button></h3>
-                </form>
+              <h3 class="card-title">
+                <a href="{{ route('user.create')}}" class="btn btn-info">Add New User</a>
+              </h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -46,13 +58,14 @@
                 </tr>
                 </thead>
                 <tbody>
+                  @foreach ($users as $user)
                 <tr>
-                  <td>1</td>
-                  <td>Amanzi Athumani</td>
-                  <td>Admin</td>
-                  <td>admin@gmail.com</td>
+                  <td>{{$user->user_id}}</td>
+                  <td>{{$user->first_name}}  {{$user->last_name}}</td>
+                  <td>{{$user->roles->description ?? 'N/A'}}</td>
+                  <td>{{$user->email}}</td>
                   <td>Active</td>
-                  <td> <a href="#">
+                  <td> <a href="{{route('user.edit', $user->user_id)}}">
                             <input type="image" title="Edit User" src="{{ asset('img/user_edit.png') }}" width="16px" />
                         </a>
                         &nbsp;
@@ -65,6 +78,7 @@
                         </a>
                   </td>
                 </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>

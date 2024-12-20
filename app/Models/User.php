@@ -28,7 +28,7 @@ class User extends Authenticatable
     public $incrementing = false;
 
     protected $fillable = [
-        'user_id', 'name','role_id','status', 'first_name','last_name','tel','email', 'address','created_by','updated_by','email_verified_at','login_at','password',
+        'user_id','password','role_id','status', 'first_name','last_name','tel','email', 'address','login_at','created_by','updated_by',
     ];
 
     /**
@@ -54,7 +54,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function role(){
-        return $this->belongsTo(roles::class);
+    public function roles(){
+        return $this->belongsTo(roles::class, 'role_id');
     }
 }

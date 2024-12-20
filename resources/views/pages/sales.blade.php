@@ -51,7 +51,6 @@
                   <th>Items Name</th>
                   <th>Serial No</th>
                   <th>Customer Name</th>
-                  <th>Customer Address</th>
                   <th>Date</th>
                   <th>Actions</th>
                 </tr>
@@ -61,8 +60,7 @@
                 <tr>
                   <td>{{ $sale->purchase->name ?? 'N/A'}}</td>
                   <td>{{ $sale->serial_no }}</td>
-                  <td>{{ $sale->customer_name }}</td>
-                  <td>{{ $sale->customer_address }}</td>
+                  <td>{{ $sale->customer->customer_name ?? 'N/A'}}</td>
                   <td>{{ $sale->date_of_sales }}</td>
                   <td><a href="{{ route('sales.edit', $sale->sales_id)}}" class="btn btn-info">Edit</a> <a href="{{ route('sales.destroy', $sale->sales_id)}}" class="btn btn-danger">Delete</a></td>
                 </tr>

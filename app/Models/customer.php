@@ -16,6 +16,6 @@ class customer extends Model
 
     public function sales()
     {
-        return $this->hasMany(sales::class);
+        return $this->hasMany(sales::class, 'customer_name');
     }
 }
