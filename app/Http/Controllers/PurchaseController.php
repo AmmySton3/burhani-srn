@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\purchase;
-use App\Models\Asset;
+use App\Models\asset;
 use App\Models\vendor;
 
 class PurchaseController extends Controller
@@ -14,7 +14,7 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::with('vendor')->get();
+        $purchases = purchase::with('vendor')->get();
         return view('pages/purchase', compact('purchases'));
     }
 
@@ -34,12 +34,12 @@ class PurchaseController extends Controller
     { 
         $validatedData = $request->validate([
             'serial_no' => 'required|string|max:20',
-            'model_no' => 'required|string|max:20',
+            'model_no' => 'nullable|string|max:20',
             'name' => 'required|string|max:100',
-            'company' => 'required|string|max:100',
+            'company' => 'nullable|string|max:100',
             'invoice_no' => 'nullable|string|max:100',
             'date_of_purchase' => 'required|date',
-            'vendor' => 'required|string|max:100',
+            'vendor_name' => 'required|string|max:100',
             'status' => 'required|string|max:1',
             'remarks'=> 'nullable|string|max:200',
 
@@ -53,7 +53,7 @@ class PurchaseController extends Controller
             return redirect()->back()->with('error', 'Item not saved.');
         }
 
-        $asset = Asset::create([
+        $asset = asset::create([
             'serial_no' => $purchases->serial_no,
 
         ]);
@@ -74,7 +74,7 @@ class PurchaseController extends Controller
      */
     public function edit( string $id )
     {
-        $purchase = Purchase::find($id);
+        $purchase = purchase::find($id);
         return view('pages/purchase-edit', ['purchase' => $purchase]);
     }
 
@@ -83,7 +83,7 @@ class PurchaseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $purchase = Purchase::find($id);
+        $purchase = purchase::find($id);
 
         if(!$purchase) {
             return redirect()->route('purchase.index')->with('error', 'Item not found.');       
@@ -95,7 +95,7 @@ class PurchaseController extends Controller
                 'company' => 'required|string|max:100',
                 'invoice_no' => 'nullable|string|max:100',
                 'date_of_purchase' => 'required|date',
-                'vendor' => 'required|string|max:100',
+                'vendor_name' => 'required|string|max:100',
                 'status' => 'required|string',
                 
             ]);
@@ -110,7 +110,7 @@ class PurchaseController extends Controller
      */
     public function destroy(string $id)
     {
-        $purchase = Purchase::find($id);
+        $purchase = purchase::find($id);
 
         if(!$purchase) {
             return redirect()->route('purchase.index')->with('error', 'Item not found.');       
