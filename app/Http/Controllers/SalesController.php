@@ -35,40 +35,44 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         // Validate the request data
         $validatedData = $request->validate([
-            'serial_no' => 'required|exists:purchases,serial_no|unique:sales,serial_no',
+            'serial_no' => 'required|array', // Ensure it is an array
+            'serial_no.*' => 'exists:purchases,serial_no|unique:sales,serial_no', // Validate each serial_no
             'customer_name' => 'required|string|max:100',
             'c_invoice_no' => 'nullable|string|max:100',
             'date_of_sales' => 'required|date',
-            'status' => 'required|string|max:1',
             'remarks' => 'nullable|string|max:200',
         ]);
     
-        // Set the status to 'S' for sales
-        $validatedData['status'] = 'S';
+        $status = 'S'; // Sales status
     
-        // Create a new sales record
-        $sales = Sales::create($validatedData);
-    
-        // Check if the sales record was created
-        if (!$sales) {
-            return redirect()->route('sales.index')->with('error', 'Sales not saved.');
-        }
-    
-        // Locate the asset by serial_no
-        $asset = Asset::where('serial_no', $sales->serial_no)->first();
-    
-        if ($asset) {
-            // Update the asset's fields
-            $asset->update([
-                'status' => $sales->status,
-                'sales_id' => $sales->sales_id,
+        // Loop through each serial_no and create a sales record
+        foreach ($validatedData['serial_no'] as $serialNo) {
+            $sales = Sales::create([
+                'serial_no' => $serialNo,
+                'customer_name' => $validatedData['customer_name'],
+                'c_invoice_no' => $validatedData['c_invoice_no'],
+                'date_of_sales' => $validatedData['date_of_sales'],
+                'status' => $status,
+                'remarks' => $validatedData['remarks'],
             ]);
+    
+            // Update the related asset's fields
+            $asset = Asset::where('serial_no', $serialNo)->first();
+            if ($asset) {
+                $asset->update([
+                    'status' => $status,
+                    'sales_id' => $sales->sales_id,
+                ]);
+            }
         }
+    
         // Redirect back with a success message
         return redirect()->route('sales.index')->with('success', 'Sales successfully saved.');
     }
+    
     
 
     /**

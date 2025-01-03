@@ -117,5 +117,26 @@
                   }
               }
         </script>
+        <script>
+        document.getElementById('add-serial-no').addEventListener('click', function() {
+            const wrapper = document.getElementById('serial-no-wrapper');
+            const newField = document.createElement('div');
+            newField.className = 'input-group mb-2';
+            newField.innerHTML = `
+            <input type="text" class="form-control" name="serial_no[]" placeholder="Enter Serial No">
+            <div class="input-group-append">
+                <button type="button" class="btn btn-danger remove-serial-no">-</button>
+            </div>
+            `;
+            wrapper.appendChild(newField);
+        });
+
+        document.getElementById('serial-no-wrapper').addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-serial-no')) {
+            e.target.closest('.input-group').remove();
+            }
+        });
+        </script>
+
     </body>
 </html>

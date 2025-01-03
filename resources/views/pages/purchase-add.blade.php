@@ -32,12 +32,19 @@
                     @csrf
                     <div class="card-body">
                         <div class="row mb-2">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="serial_no">Serial No</label>
-                                    <input type="text" class="form-control" id="serial_no" name="serial_no" placeholder="Enter Serial No">
-                                </div>
+                        <div class="col-sm-4">
+                      <div class="form-group">
+                        <label for="serial_no">Serial Nos</label>
+                        <div id="serial-no-wrapper">
+                          <div class="input-group mb-2">
+                            <input type="text" class="form-control" id="serial_no" name="serial_no[]" placeholder="Enter Serial No">
+                            <div class="input-group-append">
+                              <button type="button" class="btn btn-success" id="add-serial-no">+</button>
                             </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="name">Item Name</label>
@@ -72,8 +79,8 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="vendor">Vendor</label>
-                                    <select name="vendor" id="vendor" class="form-control" required>
+                                    <label for="vendor_name">Vendor</label>
+                                    <select name="vendor_name" id="vendor_name" class="form-control" required>
                                     <option value="" disabled selected>Select vendor</option>
                                      @foreach ($vendors as $vendor)
                                         <option value="{{ $vendor->id }}">{{ $vendor->vendor_name }}</option>

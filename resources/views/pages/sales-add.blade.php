@@ -32,24 +32,27 @@
                     @csrf
                     <div class="card-body">
                         <div class="row mb-2">
-                            <div class="col-sm-4">
-                            <div class="form-group">
-                                <label for="serial_no">Item Name</label>
-                                <select name="serial_no" id="serial_no" class="form-control" required>
-                                    <option value="" disabled selected>Select an item</option>
-                                    @foreach ($purchases as $purchase)
-                                        <option value="{{ $purchase->serial_no }}">{{ $purchase->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                              <label for="serial_no">Item Name</label>
+                              <div id="serial_no_container">
+                                  <select name="serial_no[]" class="form-control serial-no-select" required>
+                                      <option value="" disabled>Select item(s)</option>
+                                      @foreach ($purchases as $purchase)
+                                          <option value="{{ $purchase->serial_no }}">{{ $purchase->name }} ({{ $purchase->serial_no }})</option>
+                                      @endforeach
+                                  </select>
+                              </div>
+                              <button type="button" class="btn btn-success btn-sm mt-2" id="add_serial_no">+ Add</button>
+                          </div>
+                         </div>
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="customer_name">Customer Name</label>
                                     <select name="customer_name" id="customer_name" class="form-control" required>
                                     <option value="" disabled selected>Select customer name</option>
                                     @foreach ($customers as $customer)
-                                        <option value="{{ $customer->name }}">{{ $customer->customer_name }}</option>
+                                        <option value="{{ $customer->id }}">{{ $customer->customer_name }}</option>
                                     @endforeach
                                 </select>
                                 </div>
@@ -89,4 +92,37 @@
     </section>
     <!-- /.content -->
   </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const serialNoContainer = document.getElementById('serial_no_container');
+        const addSerialNoButton = document.getElementById('add_serial_no');
+
+        // Add new dropdown on "+" button click
+        addSerialNoButton.addEventListener('click', function () {
+            // Create a new dropdown element
+            const newDropdown = document.createElement('div');
+            newDropdown.classList.add('serial-no-wrapper', 'mt-2');
+            newDropdown.innerHTML = `
+                <select name="serial_no[]" class="form-control" required>
+                    <option value="" disabled>Select an item</option>
+                    @foreach ($purchases as $purchase)
+                        <option value="{{ $purchase->serial_no }}">{{ $purchase->name }} ({{ $purchase->serial_no }})</option>
+                    @endforeach
+                </select>
+                <button type="button" class="btn btn-danger btn-sm mt-1 remove-serial-no">Remove</button>
+            `;
+
+            // Append the new dropdown to the container
+            serialNoContainer.appendChild(newDropdown);
+        });
+
+        // Remove dropdown on "Remove" button click
+        serialNoContainer.addEventListener('click', function (event) {
+            if (event.target.classList.contains('remove-serial-no')) {
+                event.target.closest('.serial-no-wrapper').remove();
+            }
+        });
+    });
+</script>
+
 @endsection

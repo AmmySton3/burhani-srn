@@ -31,9 +31,11 @@ class PurchaseController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    { 
+    {
+        //dd($request->all());
         $validatedData = $request->validate([
-            'serial_no' => 'required|string|max:20',
+            'serial_no' => 'required|array', // Ensure it is an array
+            'serial_no.*' => 'required|string|max:20', // Validate each serial number
             'model_no' => 'nullable|string|max:20',
             'name' => 'required|string|max:100',
             'company' => 'nullable|string|max:100',
@@ -41,25 +43,30 @@ class PurchaseController extends Controller
             'date_of_purchase' => 'required|date',
             'vendor_name' => 'required|string|max:100',
             'status' => 'required|string|max:1',
-            'remarks'=> 'nullable|string|max:200',
-
+            'remarks' => 'nullable|string|max:200',
         ]);
 
-        $validatedData['status'] = 'P';
-
-        $purchases = purchase::create($validatedData);
-
-        if (!$purchases) {
-            return redirect()->back()->with('error', 'Item not saved.');
+        foreach ($validatedData['serial_no'] as $serial_number) {
+            $purchase = purchase::create([
+                'serial_no' => $serial_number,
+                'model_no' => $validatedData['model_no'],
+                'name' => $validatedData['name'],
+                'company' => $validatedData['company'],
+                'invoice_no' => $validatedData['invoice_no'],
+                'date_of_purchase' => $validatedData['date_of_purchase'],
+                'vendor_name' => $validatedData['vendor_name'],
+                'status' => $validatedData['status'],
+                'remarks' => $validatedData['remarks'],
+            ]);
         }
 
-        $asset = asset::create([
-            'serial_no' => $purchases->serial_no,
-
-        ]);
-
-        return redirect()->route('purchase.index')->with('success', 'Item successfully saved.');
+        if (!$purchase) {
+            return redirect()->route('purchase.index')->with('error', 'Items not saved.');
+        }
+    
+        return redirect()->route('purchase.index')->with('success', 'Items successfully saved.');
     }
+    
 
     /**
      * Display the specified resource.
